@@ -1,4 +1,4 @@
-*/ const { createTransport } = require('nodemailer');
+const { createTransport } = require('nodemailer');
 const XLSX = require('xlsx');
 
 module.exports = async (req, res) => {
