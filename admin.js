@@ -1,16 +1,33 @@
-// Simple password (you can change it)
-const ADMIN_PASSWORD = "RioSecure123";
 
-function checkPassword() {
+// SHA-256 Hash of password "RioSecure123"
+// Generated using online SHA256 tools
+const ADMIN_PASSWORD_HASH = "90e18f37bdb0f84258c65fb2fdf88ad65e26eaa2398a94dbe7b1b2bc0087f1c9";
+
+async function checkPassword() {
     const inputPassword = document.getElementById('adminPassword').value;
+    const hash = await sha256(inputPassword);
 
-    if (inputPassword === ADMIN_PASSWORD) {
+    if (hash === ADMIN_PASSWORD_HASH) {
         document.getElementById('loginBox').style.display = 'none';
         document.getElementById('adminContent').style.display = 'block';
         loadApplications();
     } else {
         alert("Incorrect Password!");
     }
+}
+
+async function sha256(message) {
+    const msgBuffer = new TextEncoder().encode(message);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    return hashHex;
+}
+
+function logout() {
+    document.getElementById('adminContent').style.display = 'none';
+    document.getElementById('loginBox').style.display = 'block';
+    document.getElementById('adminPassword').value = '';
 }
 
 async function loadApplications() {
