@@ -1,8 +1,0 @@
-{
-  "name": "rio-application-form",
-  "version": "1.0.0",
-  "dependencies": {
-    "nodemailer": "^6.9.1",
-    "xlsx": "^0.18.5"
-  }
-}
